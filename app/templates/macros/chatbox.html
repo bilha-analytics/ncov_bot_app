@@ -1,0 +1,36 @@
+{# 1. Message item #}
+
+{% macro message_item(content, is_bot) %}
+    {% if is_bot == True %}
+    <div class="media bg-light rounded p-3 mr-4 float-left shadow mb-2" >
+        <small class="rounded-circle bg-success mr-2 p-2 text-white"> {{ BOT_ID }} </small> 
+        <div class="media-body">  {{ content | safe}} </div>
+    </div>
+    <span class="clearfix"></span>
+    {% else %}            
+        <div class="media bg-light rounded p-3 ml-4 float-right shadow  mb-2"> 
+            <small class="rounded-circle bg-info mr-2 p-2 text-white"> {{ USER_ID }} </small> 
+            <div class="media-body"> {{ content }} </div>
+        </div>
+        <span class="clearfix"></span>
+    {% endif %}
+{% endmacro %}
+
+
+
+{# TODO: care using this b/c not escaping strings in body #}
+{% macro card_body(ctitle, cbody ) %}
+    <div class="card-body">
+        <h5 class="card-title" style="color: {{THEME_COLOR_BG}}; " > {{ ctitle }} </h5> 
+        <div class="card-text">
+            {{ cbody | safe}} 
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro card_full(ctitle, cbody, cimg, cstyle="" ) %}
+    <div class="card" style="{{ cstyle }}" >
+        <img class="card-img-top" src="{{cimg}}" alt="{{ctitle}}">
+        {{ card_body(ctitle, cbody ) }} 
+    </div>
+{% endmacro %}

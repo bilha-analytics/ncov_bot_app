@@ -1,0 +1,31 @@
+{# 1. Menu items #}
+
+{% macro menu_item(label, link="#", li_style="nav-item shadow", a_style="nav-link", badge=None ) %}
+    {% set active_class = li_style + " active"  %}
+    
+    {% if request.endpoint.endswith( link ) %}
+        <li class="{{ active_class }}" style="background: {{THEME_COLOR_BG}}; " > 
+            <a href="{{ url_for(link) }}" class="{{a_style}} text-white" >  {{ label }}</a>
+        </li>
+        {% if badge %}
+            {{ badge }}
+        {% endif %}
+
+    {% else %}    
+        <li class="{{ li_style }}" > 
+            <a href="{{ url_for(link) }}" class="{{a_style}}" 
+                style="color: {{THEME_COLOR_BG}}; "> {{ label }} </a>
+        {% if badge %}
+            {{ badge }}
+        {% endif %}
+        </li>
+
+    {% endif %}
+{% endmacro %}
+
+
+{# 2. Ticker item #}
+{% macro ticker_item(msg, marker="") %}
+    <span class="small font-weight-light "> {{ msg }}  <b> &nbsp; | &nbsp; </b></span>
+{% endmacro %}
+

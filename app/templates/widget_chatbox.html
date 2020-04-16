@@ -1,0 +1,28 @@
+{% import 'macros/chatbox.html' as chatbox with context %}
+
+<!-- scrollable content pane -->
+<div class="mb-5" id="msgs_container"> 
+    {% for msg in msgs %}
+        {{ chatbox.message_item( msg.msg, msg.src == BOT_ID ) }}
+    {% endfor %}
+
+<!-- force bottom of chat box -->
+<span  id="bottomz"></span>
+</div>
+
+<!-- text input message box AND is fixed bottom -->
+<nav class='navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom d-flex p-0'>
+    <form class="flex-fill" action="{{ url_for('home') }}" method="POST">
+        <div class="input-group" >                
+            <input class="form-control " 
+                type="text" id='askBot' name='askBot' 
+                placeholder="ask me about rona" autofocus>
+            </input>
+            <div class="input-group-append">
+                <!-- <span class="input-group-text">ask</span> -->
+                <button class="btn btn-success" type="submit" > ask</button>
+            </div>
+        </div>        
+    </form>
+</nav>
+

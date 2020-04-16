@@ -1,0 +1,48 @@
+{% extends 'layouts/layout_app.html' %} 
+
+{% import 'macros/chatbox.html' as chatbox with context %}
+
+{% block body %}
+    {% include 'widget_tab_navbar.html' %}
+    
+    <div class="mt-5"> <!-- clear fixed top nav-->
+        <div class="card">
+        {{ chatbox.card_full(
+            'Tester', 
+            "The quick brown fox jumped over the lazy dogs <br/> Holaaa!!!",
+            "https://www.google.com/logos/doodles/2020/thank-you-food-service-workers-6753651837108761-law.gif"
+        ) }} 
+
+        {{  12000000.09 | formatNumber }}
+        {{ '2014/03/02 17:42'| formatDate }}
+        </div>
+
+        {% include 'widget_chatbox.html' %}
+    </div>
+{% endblock %}
+
+
+
+
+{% block scripterz %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            document.location.hash = '#{{ scrollToAnchor }}'; 
+            document.getElementById('askBot').focus(); 
+        });
+
+
+        $(document).ready(function(){
+
+            //full screen it
+            document.documentElement.requestFullscreen()
+
+            $(".numberz").each(function(){  
+            });
+
+            document.location.hash = '#{{ scrollToAnchor }}'; 
+            
+            document.getElementById('askBot').focus(); 
+        }); 
+    </script> 
+{% endblock %}
