@@ -1,5 +1,5 @@
 import sys
-sys.path.append("../../shared") 
+sys.path.append("../envbin") 
 import zlogger
 
 from flask import Flask, render_template, request
@@ -7,8 +7,12 @@ from flask import Flask, render_template, request
 import apiz
 from datetime import datetime 
 
-app = Flask(__name__) 
+import zdata_source
+import zbot_logic
+from zbot_logic import ZBotLogicFlow
 
+app = Flask(__name__) 
+bot_app = None
 
 ######### -------- GLOBAL OBJECTS ----------
 
@@ -90,7 +94,8 @@ def getTempPage( cbody=None ):
     return f"<H1> { cbody.capitalize() if cbody else 'Nothing provided' } </H1>"
 
 def getBotResponse(user_input):
-    return f"Yes, {user_input.upper() }. Anything else?"
+    response, rcode = bot_app.getResponse( user_input ) 
+    return "I don't understand. Try that again" if response is None else response
 
 def genChatMsg(src, msg):
     return { 'src': src, 'msg': msg}
@@ -101,6 +106,24 @@ def upackDataForNewsTicker( datz ):
         res.append( f"{k} {v}" )
 
     return ", ".join(res) 
+
+
+
+def initBot():
+    global bot_app
+    model_fpath = 'ncov19_tfidf_faq'
+
+    faq_path = [ ('1EuvcPe9WXSQTsmSqhq0LWJG4xz2ZRQ1FEdnQ_LQ-_Ks', 'FAQ responses!A1:G1000'), ('1EuvcPe9WXSQTsmSqhq0LWJG4xz2ZRQ1FEdnQ_LQ-_Ks', 'Classify_Phrases!A1:G1000')]
+    faq_typ = zdata_source.zGSHEET_FAQ
+
+    bot_app = ZBotLogicFlow()
+    bot_app.loadFaqDbz( faq_path, faq_typ ) 
+    bot_app.loadModel( zbot_logic.MODEL_COSINE_TFIDF, model_fpath ) 
+
+
+
+
+
 
 if __name__ == "__main__":
     src = 'ncov.main'
