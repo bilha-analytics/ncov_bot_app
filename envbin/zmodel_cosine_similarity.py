@@ -4,9 +4,9 @@ goal:
 type: 
 refactor: class
 '''
-import zlogger
-import zdataset
-from zmodel  import ZModel 
+from envbin import zlogger
+from envbin import zdataset
+from envbin.zmodel  import ZModel 
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -40,7 +40,7 @@ class ZCosineSimilarity(ZModel):
         def getPredictedYlabzIdxs(pred_x_idx):
             return None if pred_x_idx is None else self.train_ylabz_idxs[ pred_x_idx]
 
-        # zlogger.log('cosine.validate', "y.IN: {}".format( repr(ylabelz_list) )  )
+        zlogger.log('cosine.validate', "y.IN: {}".format( repr(ylabelz_list) )  )
         predicted_list = np.array( [ self.predict( [rec] ) for rec in text_list ]  ) 
         predicted_list = np.array([ getPredictedYlabzIdxs(x) for x in predicted_list ] ) 
         return np.array( predicted_list == np.array(ylabelz_list) ).mean() , predicted_list  
@@ -55,13 +55,13 @@ class ZCosineSimilarity(ZModel):
     returns index of most similar doc
     '''
     def predict(self, input_text):        
-        # zlogger.log('cosine.predict', "IN: {}".format( repr(input_text ) )  )
+        zlogger.log('cosine.predict', "IN: {}".format( repr(input_text ) )  )
         
-        # zlogger.log('cosine.predict', "IN.PREPROC: {}".format( repr(self.preprocessor) )  )
+        zlogger.log('cosine.predict', "IN.PREPROC: {}".format( repr(self.preprocessor) )  )
 
         clean_input_text = self.preprocessText( input_text ) 
 
-        # zlogger.log('cosine.predict', "IN.CLEAN: {} {}".format( len(clean_input_text),  repr(clean_input_text ) )  )
+        zlogger.log('cosine.predict', "IN.CLEAN: {} {}".format( len(clean_input_text),  repr(clean_input_text ) )  )
            
         # if not isinstance(clean_input_text, str):
         #     clean_input_text = " ".join( list( clean_input_text) )
@@ -73,7 +73,7 @@ class ZCosineSimilarity(ZModel):
             valz = cosine_similarity( input_vec, self.trained_matrix )  
             idx = valz.argsort()[0][-1] 
             
-            # zlogger.log('cosine.predict', "ANS: {}".format( idx ) )  
+            zlogger.log('cosine.predict', "ANS: {}".format( idx ) )  
 
             # flatz = valz.flatten()
             # flatz.sort()
@@ -82,7 +82,7 @@ class ZCosineSimilarity(ZModel):
             if resp <= self._predict_threshold: ## TODO threshold it at .5 
                 idx =  None
 
-        # zlogger.log('Ccosine.predict', "idx = {}, resp= {}".format(idx, resp) ) 
+        zlogger.log('Ccosine.predict', "idx = {}, resp= {}".format(idx, resp) ) 
         return idx 
 
 

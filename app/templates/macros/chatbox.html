@@ -21,7 +21,7 @@
 {# TODO: care using this b/c not escaping strings in body #}
 {% macro card_body(ctitle, cbody ) %}
     <div class="card-body">
-        <h5 class="card-title" style="color: {{THEME_COLOR_BG}}; " > {{ ctitle }} </h5> 
+        <h4 class="card-title " > {{ ctitle }} </h4> 
         <div class="card-text">
             {{ cbody | safe}} 
         </div>
@@ -29,7 +29,7 @@
 {% endmacro %}
 
 {% macro card_full(ctitle, cbody, cimg, cstyle="" ) %}
-    <div class="card" style="{{ cstyle }}" >
+    <div class="card {{ cstyle }}" > 
         <img class="card-img-top" src="{{cimg}}" alt="{{ctitle}}">
         {{ card_body(ctitle, cbody ) }} 
     </div>

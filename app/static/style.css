@@ -1,0 +1,12 @@
+$theme_bgcolor : #422057; 
+$theme_bgfontcolor: #FCF951 ; 
+$theme_highlightcolor: #CBCE91 ; 
+
+
+.ztabbar_item {
+    background: #422057;
+}
+
+.ztabbar {
+    border-bottom: 3px solid  #422057;
+}

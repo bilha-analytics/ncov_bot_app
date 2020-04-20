@@ -4,9 +4,9 @@ goal:
 type: 
 refactor: class
 '''
-import zlogger
-import zdataset
-from zmodel  import ZModel 
+from envbin import zlogger
+from envbin import zdataset
+from envbin.zmodel  import ZModel 
 
 # from tensorflow import keras
 

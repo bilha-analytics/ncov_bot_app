@@ -4,7 +4,7 @@
     {% set active_class = li_style + " active"  %}
     
     {% if request.endpoint.endswith( link ) %}
-        <li class="{{ active_class }}" style="background: {{THEME_COLOR_BG}}; " > 
+        <li class="{{ active_class }} ztabbar_item" > 
             <a href="{{ url_for(link) }}" class="{{a_style}} text-white" >  {{ label }}</a>
         </li>
         {% if badge %}
@@ -13,8 +13,7 @@
 
     {% else %}    
         <li class="{{ li_style }}" > 
-            <a href="{{ url_for(link) }}" class="{{a_style}}" 
-                style="color: {{THEME_COLOR_BG}}; "> {{ label }} </a>
+            <a href="{{ url_for(link) }}" class="{{a_style}}" > {{ label }} </a>
         {% if badge %}
             {{ badge }}
         {% endif %}
@@ -26,6 +25,6 @@
 
 {# 2. Ticker item #}
 {% macro ticker_item(msg, marker="") %}
-    <span class="small font-weight-light "> {{ msg }}  <b> &nbsp; | &nbsp; </b></span>
+    <span class="small font-weight-light ">  >> {{ msg }}  <strong> &nbsp; | &nbsp; </strong></span>
 {% endmacro %}
 

@@ -6,8 +6,8 @@ refactor: class, encoders and selectors decouple
 '''
 # import sys
 # sys.path.append("../../../shared") 
-import zlogger 
-import zdata_source
+from envbin import zlogger 
+from envbin import zdata_source
 
 from collections.abc import Iterable
 import string, re 

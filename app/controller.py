@@ -1,17 +1,16 @@
-import sys
-sys.path.append("../envbin") 
-import zlogger
 
-from flask import Flask, render_template, request
+from app import app
 
-import apiz
 from datetime import datetime 
 
-import zdata_source
-import zbot_logic
-from zbot_logic import ZBotLogicFlow
+from envbin import zlogger
 
-app = Flask(__name__) 
+from envbin import apiz
+
+from envbin import zdata_source
+from envbin import zbot_logic
+from envbin.zbot_logic import ZBotLogicFlow
+
 bot_app = None
 
 ######### -------- GLOBAL OBJECTS ----------
@@ -25,17 +24,10 @@ NAV_MENU = [
 BOT_ID = 'bot' 
 USER_ID = 'me'
 
-MESSAGEZ =[
-    { 'src':'me'}
+MESSAGEZ =[ 
 ]
 
 NEWS_TICKER = [] #["the quick brown fox jumped over the lazy dogs", "This is a tester  <b>|</b> The dogs ate the homework", "The cats didn't care", "Pop goes the whistle", "435943 75,043"]
-
-
-## TODO: static/style.css
-THEME_COLOR_BG="#422057"
-THEME_COLOR_FONT="FCF951"
-THEME_COLOR_HIGHLIGHT = "#CBCE91"
 
 
 #### ----- TODO: UTILZ ------ 
@@ -50,41 +42,6 @@ def formatDate(zdate, src_format='%Y/%m/%d', target_format="%d %b, %Y"):
 
 
 ######### -------- APP  ----------
-
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/home', methods=['GET', 'POST'])
-def home( title="Botify"):
-    if request.method == 'POST':
-        msg_in = request.form.get('askBot') 
-        MESSAGEZ.append( genChatMsg( USER_ID, msg_in ) ) 
-        MESSAGEZ.append( genChatMsg(BOT_ID, getBotResponse(msg_in ) ) ) 
-
-    ARGZ = {
-        'title' : title,
-        "nav_menu" : NAV_MENU,
-        'BOT_ID' : BOT_ID,
-        'USER_ID' : USER_ID,
-        
-        'THEME_COLOR_BG' : THEME_COLOR_BG,
-        'THEME_COLOR_FONT' : THEME_COLOR_FONT,
-        'THEME_COLOR_HIGHLIGHT' : THEME_COLOR_HIGHLIGHT, 
-        
-        'scrollToAnchor' : 'bottomz',
-
-        'msgs' : MESSAGEZ, 
-        'NEWS_TICKER' : NEWS_TICKER, 
-    }
-    return render_template('test.html', **ARGZ)  
-
-
-@app.route('/about')
-def about():
-    return getTempPage('About')
-
-
-@app.route('/casesmap')
-def map_cases():
-    return getTempPage('Map Cases')
 
 
 
@@ -121,20 +78,25 @@ def initBot():
     bot_app.loadModel( zbot_logic.MODEL_COSINE_TFIDF, model_fpath ) 
 
 
-
-
-
-
-if __name__ == "__main__":
-    src = 'ncov.main'
-    zlogger.log(src, "STARTING")
+def initStreamz():    
+    global KE_DATA, GLOBAL_DATA, NEWS_TICKER 
     
     KE_DATA, GLOBAL_DATA =    apiz.getLatestSummaryStats_PA()
     
     NEWS_TICKER = [ upackDataForNewsTicker(KE_DATA), 
                     upackDataForNewsTicker(GLOBAL_DATA), 
                     *apiz.getRelatedNews() ]
+    zlogger.log('controller.initStreamz', f"NEWS={NEWS_TICKER}")
 
-    app.run(debug=True)
+
+
+if __name__ == "__main__":
+    src = 'ncov.main'
+
+    zlogger.log(src, "STARTING")
+    
+    initBot()
+
+    initStreamz() 
 
     zlogger.log(src, "FINISHED")

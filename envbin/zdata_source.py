@@ -4,7 +4,7 @@ goal: Read/Fetch from different text container/storage types. Write to different
 type: util, factory
 refactor: class
 '''
-import zlogger
+from envbin import zlogger
 
 import sys, traceback, os 
 
@@ -180,11 +180,11 @@ def gsheetRead_GoogleWay(dpath):
     results = None
     
     scope =  ['https://www.googleapis.com/auth/spreadsheets'] 
-    dfile = "../envbin/gsheet_get.json"
+    dfile = "gsheet_get.json"
 
     creds = None
-    if os.path.exists( '../envbin/token.pickle'):
-        with open( '../envbin/token.pickle', 'rb') as fd:
+    if os.path.exists( 'token.pickle'):
+        with open( 'token.pickle', 'rb') as fd:
             creds = pickle.load( fd ) 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -192,7 +192,7 @@ def gsheetRead_GoogleWay(dpath):
         else:
             flow = InstalledAppFlow.from_client_secrets_file( dfile, scope) 
             creds = flow.run_local_server(port=0)
-        with open('../envbin/token.pickle', 'wb') as fd:
+        with open('token.pickle', 'wb') as fd:
             pickle.dump( creds, fd) 
     
     service = build('sheets', 'v4', credentials=creds, cache_discovery=False) 

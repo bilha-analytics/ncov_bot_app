@@ -2,12 +2,15 @@
 
 {% block title %} 
     {% if title %}
-        {{ title }}         
+        {{ title }}  
+    {% else %}
+        Home
     {% endif %}
 {% endblock %}
 
 {% block stylerz %} 
     {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
 {% endblock %}
 
 <!-- it's a roll!! -->
@@ -17,4 +20,5 @@
 
 {% block scripterz %} 
     {{ super() }}
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}

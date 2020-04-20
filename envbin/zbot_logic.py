@@ -6,17 +6,17 @@ refactor: class, pre-set responses,
 '''
 # import sys
 # sys.path.append("../../../shared") 
-import zlogger
+from envbin import zlogger
 
 from termcolor import colored 
 import random
 
-import zdata_source 
-from zdataset import cleanup_and_lemmatize
-from zdataset import ZGsheetFaqDataSet 
-from zmodel import ZModel
-from zmodel_cosine_similarity import ZCosineSimilarity
-from zmodel_ngram_mlp import NgramMLP
+from envbin import zdata_source 
+from envbin.zdataset import cleanup_and_lemmatize
+from envbin.zdataset import ZGsheetFaqDataSet 
+from envbin.zmodel import ZModel
+from envbin.zmodel_cosine_similarity import ZCosineSimilarity
+from envbin.zmodel_ngram_mlp import NgramMLP
 
 
 ## AVAILABLE LEARNING MODELS 

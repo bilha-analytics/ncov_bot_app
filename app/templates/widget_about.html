@@ -1,0 +1,23 @@
+{% import 'macros/chatbox.html' as chatbox with context %}
+
+{% set about_body = 
+    '''
+    A <em> retrievel based </em> machine learning FAQ bot. 
+    <p>
+        Data is sourced from 
+        <ul>
+            <li><a href="http://www.health.go.ke/"> Ministry of Health, KE </a></li>
+            <li><a href="https://coronavirus.jhu.edu/"> John Hopkins Uni </a></li>
+            <li><a href="https://www.who.int/"> WHO </a></li>
+            <li><a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html"> CDC </a></li>
+        </ul>
+    </p>
+    '''
+%}
+
+{{ chatbox.card_full(
+    'About', 
+    about_body | safe,
+    "https://i.pinimg.com/originals/9a/11/33/9a1133d4af3b637e1c6c8ff251785f27.jpg"
+    )
+}}
