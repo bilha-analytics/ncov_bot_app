@@ -1,9 +1,9 @@
 # Retrieval Based Covid19 Bot
 
 <p align='center'>
-    <img src='eg_screen_map.png' width='170'>
-    <img src='eg_screen_bot.png' width='170'>
-    <img src='eg_screen_about.png' width='170'>
+    <img src='eg_screen_map.png' width='200'>
+    <img src='eg_screen_bot.png' width='200'>
+    <img src='eg_screen_about.png' width='200'>
 </p>
 
 **The Data**
