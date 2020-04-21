@@ -1,18 +1,16 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
-    document.location.hash = '#{{ scrollToAnchor }}'; 
-    document.getElementById('askBot').focus(); 
+    setupScreen()
 });
 
 
 $(document).ready(function(){
+    setupScreen()
+}); 
 
+function setupScreen(){
     //full screen it
     document.documentElement.requestFullscreen()
-
-    $(".numberz").each(function(){  
-    });
-
-    document.location.hash = '#{{ scrollToAnchor }}'; 
-    
+    document.location.hash = '#bottomz';     
     document.getElementById('askBot').focus(); 
-}); 
+    document.getElementById('jhumap').src = document.getElementById('jhumap').src 
+}

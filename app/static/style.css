@@ -3,10 +3,12 @@ $theme_bgfontcolor: #FCF951 ;
 $theme_highlightcolor: #CBCE91 ; 
 
 
-.ztabbar_item {
+.ztabitem {
     background: #422057;
 }
-
+.ztabitem_a {
+    text: #fff;
+}
 .ztabbar {
     border-bottom: 3px solid  #422057;
 }

@@ -30,7 +30,7 @@
 
 {% macro card_full(ctitle, cbody, cimg, cstyle="" ) %}
     <div class="card {{ cstyle }}" > 
-        <img class="card-img-top" src="{{cimg}}" alt="{{ctitle}}">
+        <img class="card-img-top h-25" src="{{cimg}}" alt="{{ctitle}}" >
         {{ card_body(ctitle, cbody ) }} 
     </div>
 {% endmacro %}

@@ -67,22 +67,26 @@ class ZCosineSimilarity(ZModel):
         #     clean_input_text = " ".join( list( clean_input_text) )
         
         idx = None
+        resp = None 
+        if len( clean_input_text ) == 0:
+            ## assuming is a define question['corona']
+            clean_input_text = ['corona'] 
+
+        input_vec = self.model.transform( clean_input_text )        
+        valz = cosine_similarity( input_vec, self.trained_matrix )  
+        idx = valz.argsort()[0][-1] 
         
-        if len( clean_input_text ) > 0:
-            input_vec = self.model.transform( clean_input_text )        
-            valz = cosine_similarity( input_vec, self.trained_matrix )  
-            idx = valz.argsort()[0][-1] 
-            
-            zlogger.log('cosine.predict', "ANS: {}".format( idx ) )  
+        zlogger.log('cosine.predict', "ANS: {}".format( idx ) )  
 
-            # flatz = valz.flatten()
-            # flatz.sort()
-            # resp = flatz[-1]
-            resp = valz[0][ idx ]
-            if resp <= self._predict_threshold: ## TODO threshold it at .5 
-                idx =  None
+        # flatz = valz.flatten()
+        # flatz.sort()
+        # resp = flatz[-1]
+        resp = valz[0][ idx ]
+        if resp <= self._predict_threshold: ## TODO threshold it at .5 
+            idx =  None
+        
 
-        zlogger.log('Ccosine.predict', "idx = {}, resp= {}".format(idx, resp) ) 
+        zlogger.log('cosine.predict', "idx = {}, resp= {}".format(idx, resp) ) 
         return idx 
 
 

@@ -12,33 +12,48 @@ from envbin import zbot_logic
 from envbin.zbot_logic import ZBotLogicFlow
 
 bot_app = None
+IS_TABBED_PANE = False 
 
 ######### -------- GLOBAL OBJECTS ----------
 
-NAV_MENU = [
-    {'label' : 'home', 'link' : 'home'}, 
-    {'label' : 'Map of Cases', 'link' : 'map_cases'}, 
-    {'label' : 'About', 'link' : 'about'}, 
+## TODO: kill repetition 
+TABBED_NAV_MENU = [
+    {'label' : 'Map of Cases', 'link' : 'mapcases', 'is_tabbed_pane':IS_TABBED_PANE }, 
+    {'label' : 'Chat Bot', 'link' : 'chatbot', 'is_tabbed_pane':IS_TABBED_PANE }, 
+    {'label' : 'About', 'link' : 'about', 'is_tabbed_pane':IS_TABBED_PANE }, 
 ]
+
+APP_ICON_URL = "https://previews.123rf.com/images/goodzone95/goodzone951803/goodzone95180300026/96725720-chatbot-icon-.jpg" #"https://i.pinimg.com/originals/9a/11/33/9a1133d4af3b637e1c6c8ff251785f27.jpg"
 
 BOT_ID = 'bot' 
 USER_ID = 'me'
 
-MESSAGEZ =[ 
-]
+MESSAGEZ =[ ]
 
 NEWS_TICKER = [] #["the quick brown fox jumped over the lazy dogs", "This is a tester  <b>|</b> The dogs ate the homework", "The cats didn't care", "Pop goes the whistle", "435943 75,043"]
+
+KE_DATA, GLOBAL_DATA = [], []
+NEWS_DATA , NEWS_TICKER = [], []
 
 
 #### ----- TODO: UTILZ ------ 
 @app.template_filter('formatNumber')
 def formatNumber(znumber):
-    return "{:,.0f}".format( znumber )    
+    # print( f"formatNumber.>>> '{znumber}' ")
+    # znumber = znumber.strip() if isinstance(znumber, str) else znumber 
+    return "{:,.0f}".format( znumber )  if znumber else znumber #if len(znumber) > 0 else znumber 
 
 @app.template_filter('formatDate')
-def formatDate(zdate, src_format='%Y/%m/%d', target_format="%d %b, %Y"):
-    zdate = datetime.strptime( zdate.split(' ')[0], src_format)
-    return datetime.strftime(zdate, target_format ) 
+def formatDate(zdate, src_format='%Y-%m-%d', target_format="%d %b, %Y"):
+    # print( f'zdate.BEFORE >>>>>>>> {zdate}' )
+    if zdate:
+        zdate1 = datetime.strptime( zdate.split('T')[0], src_format)
+        zdate2 = zdate.split('T')[1][:-4]
+        # print( f'zdate.AFTER >>>>>>>> {zdate2}' )
+        return f"{datetime.strftime(zdate1, target_format ) } at {zdate2}"
+    else:
+        return zdate 
+
 
 
 ######### -------- APP  ----------
@@ -54,13 +69,16 @@ def getBotResponse(user_input):
     response, rcode = bot_app.getResponse( user_input ) 
     return "I don't understand. Try that again" if response is None else response
 
-def genChatMsg(src, msg):
-    return { 'src': src, 'msg': msg}
+def addChatMsg(src, msg):
+    MESSAGEZ.append( { 'src': src, 'msg': msg} ) 
 
 def upackDataForNewsTicker( datz ):
     res = []
     for k, v in datz.items():
-        res.append( f"{k} {v}" )
+        try: ##by brute!!
+            res.append( "{} : {:,.0f}".format( k, int(v) ) ) 
+        except:            
+            res.append( f"{k} {v}" ) 
 
     return ", ".join(res) 
 
@@ -79,13 +97,13 @@ def initBot():
 
 
 def initStreamz():    
-    global KE_DATA, GLOBAL_DATA, NEWS_TICKER 
+    global KE_DATA, GLOBAL_DATA, NEWS_DATA, NEWS_TICKER 
     
     KE_DATA, GLOBAL_DATA =    apiz.getLatestSummaryStats_PA()
-    
-    NEWS_TICKER = [ upackDataForNewsTicker(KE_DATA), 
-                    upackDataForNewsTicker(GLOBAL_DATA), 
-                    *apiz.getRelatedNews() ]
+    NEWS_DATA , NEWS_TICKER = apiz.getRelatedNews() 
+    numz = [ upackDataForNewsTicker(KE_DATA), 
+            upackDataForNewsTicker(GLOBAL_DATA), ]
+    NEWS_TICKER = [ *NEWS_TICKER ]
     zlogger.log('controller.initStreamz', f"NEWS={NEWS_TICKER}")
 
 

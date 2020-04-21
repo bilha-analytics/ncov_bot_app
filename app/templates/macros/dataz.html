@@ -1,0 +1,16 @@
+{# Data Table with KE and Global Data only #}
+{% macro data_header_row( c1, c2, c3) %}
+    <tr >
+        <th class="p-0" scope="col"><small><strong> {{ c1 }} </strong></small></th>
+        <th class="p-0" scope="col"><small><strong> {{ c2 }} </strong></small></th>
+        <th class="p-0" scope="col"><small><strong> {{ c3 }} </strong></small></th>
+    </tr>
+{% endmacro %}
+
+{% macro data_row( c1, c2, c3) %}
+    <tr>
+        <td class="p-1"><small> {{ c1 }} </small></td>        
+        <td class="p-1"><small> {{ c2 }} </small></td>        
+        <td class="p-1"><small> {{ c3 }} </small></td>        
+    </tr>
+{% endmacro %}

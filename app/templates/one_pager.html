@@ -1,0 +1,17 @@
+{% if IS_TABBED_PANE %}
+    <div class="container mt-5 pt-3"> <!-- mt-5 @ clear fixed top nav-->        
+        <div class="tab-content" id='tabz'>         
+            <div class="tab-pane container active" id='home'>
+                {% include 'widget_chatbox.html' %}
+            </div>
+            <div class="tab-pane container" id='mapcases'>
+                {% include 'widget_jhu_map.html' %}
+            </div>
+            <div class="tab-pane container" id='about'>
+                {% include 'widget_about.html' %}
+            </div>
+        </div>
+    </div>
+{% else %}
+    {% include 'widget_chatbox.html' %}
+{% endif %}

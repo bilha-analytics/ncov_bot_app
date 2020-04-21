@@ -1,30 +1,41 @@
 {# 1. Menu items #}
 
-{% macro menu_item(label, link="#", li_style="nav-item shadow", a_style="nav-link", badge=None ) %}
-    {% set active_class = li_style + " active"  %}
-    
-    {% if request.endpoint.endswith( link ) %}
-        <li class="{{ active_class }} ztabbar_item" > 
-            <a href="{{ url_for(link) }}" class="{{a_style}} text-white" >  {{ label }}</a>
-        </li>
-        {% if badge %}
-            {{ badge }}
-        {% endif %}
+{% macro menu_item(label, link="#", is_tabbed_pane=False, li_style="nav-item shadow", a_style="nav-link", badge=None ) %}
+    {% set active_li_class = li_style + " active ztabitem"  %}
+    {% set active_a_class = a_style + " ztabitem_a"  %}
 
-    {% else %}    
-        <li class="{{ li_style }}" > 
-            <a href="{{ url_for(link) }}" class="{{a_style}}" > {{ label }} </a>
-        {% if badge %}
-            {{ badge }}
-        {% endif %}
-        </li>
-
+    {# Caller: Ensure input is valid link name and with prefix would be valid id #}
+    {% set a_link = url_for(link) %} 
+    {% if is_tabbed_pane %}    
+        {% set a_link = "#"+link %} 
     {% endif %}
+
+    {% if request.endpoint.endswith( link ) %}            
+        {{ list_link_item(label, a_link, active_li_class, active_a_style, badge) }}
+    {% else %}    
+        {{ list_link_item(label, a_link, li_style, a_style, badge)  }}
+    {% endif %}
+{% endmacro %}
+
+
+{# 1.b. List Item #}
+{% macro list_link_item(label, link, li_style, a_style, is_tabbed_pane=False, badge=None) %}    
+    <li class="{{ li_style }}" > 
+        {% if is_tabbed_pane %}
+            <a href="{{ link }}" class="{{a_style}}" data-toggle='tab'> {{ label }} </a>
+        {% else %}
+            <a href="{{ link }}" class="{{a_style}}" > {{ label }} </a>
+        {% endif %}
+
+        {% if badge %}
+            {{ badge }}
+        {% endif %}
+    </li>
 {% endmacro %}
 
 
 {# 2. Ticker item #}
 {% macro ticker_item(msg, marker="") %}
-    <span class="small font-weight-light ">  >> {{ msg }}  <strong> &nbsp; | &nbsp; </strong></span>
+    <span class="small font-weight-light "><small>  {{ msg }}  <strong> &nbsp; | &nbsp; </strong></small></span>
 {% endmacro %}
 

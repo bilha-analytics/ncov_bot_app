@@ -26,14 +26,14 @@ def getLatestSummaryStats_PA(country='Kenya'):
     return KE_DATA, GLOBAL_DATA
     
 def getRelatedNews():
-    NEWS = []
+    NEWS_DATA , NEWS_TICKER = [], []
 
     api_key = "633d33d95eac415e8334b783cabe3485"
     
     q = "covid19"
     mkt='en-US'
     safeSearch = 'safeSearch'
-    news_source = 'medical-news-today' #'google-news' #reuters associated-press bbc-news cnn google-news business-insider bloomberg buzzfeed  etc>>> 
+    news_source = 'medical-news-today' #'google-news' # reuters associated-press bbc-news cnn google-news business-insider bloomberg buzzfeed  etc>>> 
     category = 'health' #&category={category}
 
     api_url = f"http://newsapi.org/v2/top-headlines?sources={news_source}&apiKey={api_key}"
@@ -43,6 +43,7 @@ def getRelatedNews():
     print(rqst) 
     
     for item in rqst['articles']:
-        NEWS.append( item['title'] )
+        NEWS_TICKER.append( item['title'] )
+        NEWS_DATA.append( item ) 
 
-    return NEWS 
+    return NEWS_DATA , NEWS_TICKER
