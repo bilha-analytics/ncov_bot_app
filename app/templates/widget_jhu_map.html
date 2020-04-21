@@ -7,14 +7,14 @@
             marginheight="0" marginwidth="0" title="2019-nCoV" >
         </iframe>
     </div>
-    <small class=""> <strong> Credits:</strong> John Hopkins University </small>
+    <small class=""> <strong> Credits:</strong> John Hopkins University. </small>
 </div> 
         
 
 <div class="card-body pl-0">
     <!-- <h6 class="card-title"> <small> Last Update: {{ ke_data['Date'] | formatDate }}</small> </h6> --> 
     <table class="table table-striped table-light p-0 m-0"><small>
-        <caption><small><em> Tracking cases. Last Updated: {{ ke_data['Date'] | formatDate }} </em></small></caption>
+        <caption><small><em> Tracking cases. Last Updated: {{ ke_data['Date'] | formatDate }} <br/> May be behind the map. Map is most up to date</em></small></caption>
         <thead class="thead-light"> {{ tabler.data_header_row( "", "Kenya", "Global") }} </thead>
         <tbody class=""> 
             {{ tabler.data_row( "New Confirmed", ke_data['NewConfirmed'] | formatNumber, glb_data['NewConfirmed'] | formatNumber) }}
