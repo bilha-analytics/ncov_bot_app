@@ -1,6 +1,10 @@
 # Retrieval Based Covid19 Bot
 
-![map tracker](eg_screen_map.png 'tracker'){:width='150px'}![bot chat](eg_screen_bot.png 'bot convo'){:width='150px'}![about](eg_screen_about.png 'credits'){:width='150px'}
+<p align='center'>
+    <img src='eg_screen_map.png' width='170'>
+    <img src='eg_screen_bot.png' width='170'>
+    <img src='eg_screen_about.png' width='170'>
+</p>
 
 **The Data**
 - Data Sources: WHO, CDC, JHU, MoH KE
