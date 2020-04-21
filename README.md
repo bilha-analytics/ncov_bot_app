@@ -1,6 +1,6 @@
 # Retrieval Based Covid19 Bot
 
-![map tracker](eg_screen_map.png 'tracker')![bot chat](eg_screen_bot.png 'bot convo')![about](eg_screen_about.png 'credits')
+![map tracker](eg_screen_map.png =150x 'tracker')![bot chat](eg_screen_bot.png =150x 'bot convo')![about](eg_screen_about.png =150x 'credits')
 
 **The Data**
 - Data Sources: WHO, CDC, JHU, MoH KE
@@ -33,6 +33,6 @@
 
 
 **Other Things**
-- Using the super awesome [JHU map tracker] (https://coronavirus.jhu.edu/)
+- Using the super awesome [JHU map tracker](https://coronavirus.jhu.edu/)
 - Saving user input to build up the training set. Intend on updating model periodically with more FAQ content and training phrases from users 
 
