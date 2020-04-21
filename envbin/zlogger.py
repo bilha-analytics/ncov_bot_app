@@ -57,7 +57,7 @@ Input:
 Return: None
 ''' 
 
-def log(src, msg, ltype=logging.INFO, appName=None): 
+def log(src, msg, ltype=logging.INFO, appName='zmoi'): 
     if LOGGER is None:
         startLogger(appName) 
 
