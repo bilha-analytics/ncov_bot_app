@@ -9,19 +9,21 @@ import requests , json
 
 
 def getLatestSummaryStats_PA(country='Kenya'):
-    KE_DATA = None 
+    KE_DATA = None
     GLOBAL_DATA = None
 
     api_url = "https://api.covid19api.com/summary"
     rqst = requests.get(api_url)
-    rqst = json.loads( rqst.text )
+    print( rqst ) 
+    if rqst: 
+        rqst = json.loads( rqst.text )
 
-    GLOBAL_DATA = rqst['Global']
+        GLOBAL_DATA = rqst['Global']
 
-    rqst = rqst['Countries']
-    for item in rqst:
-        if item['Country'] == country:
-            KE_DATA = item
+        rqst = rqst['Countries']
+        for item in rqst:
+            if item['Country'] == country:
+                KE_DATA = item
 
     return KE_DATA, GLOBAL_DATA
     

@@ -4,7 +4,7 @@
     <!-- title and nav bar button AND is fixed at top -->
     <div class="p-0 m-0 fixed-top">
 
-        <nav class="navbar bg-light navbar-light ztabbar p-0 m-0 "  >
+        <nav class="navbar navbar-light bg-light ztabbar p-0 m-0 "  >
             <!-- logo on the left -->
             <a class="navbar-brand m-0 p-0" href="{{ url_for('mapcases') }}">
                 <img style="width: 30px;" 
@@ -12,17 +12,18 @@
             </a>
     
             <!-- tabs menu bar  -->
-            <div class="nav nav-tabs justify-content-end " id="dMenu">
+            <ul class="nav nav-tabs justify-content-end " id="dMenu">
                 {% for menu in nav_menu %}
                     {{ navbarz.menu_item( **menu ) }}
                 {% endfor %}
-            </div>
+            </ul>
         </nav>
 
         
         <!-- news ticker TODO: replace with JS b/c deprecated marquee-->
         <div class="m-0 p-0 bg-light pr-1"  >
             <marquee scrollamount=4 behaviour='slide'> 
+                <span class="small font-weight-light m-0 p-0"><small><em>Medical News</em></small></span>
                 <span class="m-0 p-0">
                     <img class="" style="height: 17px; "
                         src="https://w0.pngwave.com/png/422/126/newspaper-computer-icons-symbol-news-icon-png-clip-art.png" />
@@ -30,7 +31,7 @@
                 {% for item in NEWS_TICKER %}
                     {{ navbarz.ticker_item(item) }}
                 {% endfor %}
-                <span class="small font-weight-light "><small> Powered by NewsAPI.org </small> </span>
+                <span class="small font-weight-light m-0 p-0"><small> Powered by NewsAPI.org </small> </span>
             </marquee>
         </div>
     </div>

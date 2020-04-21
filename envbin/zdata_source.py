@@ -163,7 +163,7 @@ def doGSheet(dpath, mode, content=None):
     if mode == MODE_WRITE:
         raise NotImplementedError
     elif mode == MODE_APPEND:
-        raise NotImplementedError 
+        gsheetWriteAppend(dpath, content)
     else: 
         results = gsheetRead_GoogleWay( dpath )
     return results 
@@ -198,11 +198,38 @@ def gsheetRead_GoogleWay(dpath):
     service = build('sheets', 'v4', credentials=creds, cache_discovery=False) 
 
     sheet = service.spreadsheets()
-    reader = sheet.values().get(spreadsheetId=dpath[0], range=dpath[1]).execute() 
-    
-    # print( '>>>>> is JSON>=?',  reader )
-
+    reader = sheet.values().get(spreadsheetId=dpath[0], range=dpath[1]).execute()  
     results = reader.get('values', None)  
+
+    return results 
+
+
+def gsheetWriteAppend(dpath, content):
+    scope =  ['https://www.googleapis.com/auth/spreadsheets'] 
+    dfile = "gsheet_get.json"
+
+    creds = None
+    if os.path.exists( 'token.pickle'):
+        with open( 'token.pickle', 'rb') as fd:
+            creds = pickle.load( fd ) 
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh( Request() ) 
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file( dfile, scope) 
+            creds = flow.run_local_server(port=0)
+        with open('token.pickle', 'wb') as fd:
+            pickle.dump( creds, fd) 
+    
+    service = build('sheets', 'v4', credentials=creds, cache_discovery=False) 
+    
+    sheet = service.spreadsheets() 
+    writer = sheet.values().append(
+                spreadsheetId=dpath[0], range=dpath[1], 
+                valueInputOption = "RAW", #majorDimension='ROWS', 
+                body = { 'values' : [ content ] }  ## 
+            ).execute()
+    results = writer.get('updates').get( "updatedCells")  
 
     return results 
 

@@ -7,18 +7,32 @@ from app.controller import *
 
 from envbin import zlogger
 
+def forceServiceStart():
+    if len( controller.NEWS_TICKER) == 0:
+        controller.initStreamz()
+        zlogger.log('main_views.home.restartStreamz', f"NEWS_TICKER = {controller.NEWS_TICKER}")     
+    
+    if controller.bot_app is None:
+        controller.initBot()        
+        controller.addChatMsg( controller.BOT_ID, 'Hi there. Ask me about Corona virus')
+
+    
 
 @app.route('/chatbot', methods=['GET', 'POST'])
 def chatbot( title="Botify"): 
     zlogger.log('main_views.home', f"NEWS_TICKER = {controller.NEWS_TICKER}")     
-    if len( controller.NEWS_TICKER) == 0:
-        controller.initStreamz()
-        zlogger.log('main_views.home.restartStreamz', f"NEWS_TICKER = {controller.NEWS_TICKER}")     
+    
+    forceServiceStart()
 
     if request.method == 'POST':
         msg_in = request.form.get('askBot') 
-        controller.addChatMsg( controller.USER_ID, msg_in ) 
-        controller.addChatMsg(controller.BOT_ID, controller.getBotResponse(msg_in ) ) 
+        bot_msg, pred_cat = controller.getBotResponse(msg_in ) 
+        
+        controller.addChatMsg( controller.USER_ID, msg_in,
+                                request.user_agent, request.remote_addr , 
+                                pred_cat
+                                ) 
+        controller.addChatMsg(controller.BOT_ID, bot_msg ) 
 
     ARGZ = {
         'title' : title,
@@ -42,9 +56,12 @@ def chatbot( title="Botify"):
 
 
 @app.route('/about')
-def about(title='About'):    
+def about(title='About'):   
+    forceServiceStart()
+
     ARGZ = {
-        'title' : title,     
+        'title' : title,    
+        'IS_TABBED_PANE' : controller.IS_TABBED_PANE,  
         "nav_menu" : controller.TABBED_NAV_MENU , 
         "APP_ICON_URL" : controller.APP_ICON_URL, 
         'NEWS_TICKER' : controller.NEWS_TICKER, 
@@ -60,9 +77,12 @@ def about(title='About'):
 @app.route('/')
 @app.route('/home')
 @app.route('/mapcases')
-def mapcases(title='Covid19 Map'):
+def mapcases(title='Covid Bot'):
+    forceServiceStart()
+    
     ARGZ = {
         'title' : title,
+        'IS_TABBED_PANE' : controller.IS_TABBED_PANE, 
         "nav_menu" : controller.TABBED_NAV_MENU ,
         "APP_ICON_URL" : controller.APP_ICON_URL,  
         'NEWS_TICKER' : controller.NEWS_TICKER, 

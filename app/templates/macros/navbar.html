@@ -1,8 +1,8 @@
 {# 1. Menu items #}
 
-{% macro menu_item(label, link="#", is_tabbed_pane=False, li_style="nav-item shadow", a_style="nav-link", badge=None ) %}
-    {% set active_li_class = li_style + " active ztabitem"  %}
-    {% set active_a_class = a_style + " ztabitem_a"  %}
+{% macro menu_item(label, link="#", is_tabbed_pane=False, li_style="nav-item", a_style="nav-link", badge=None ) %}
+    {% set active_li_class = li_style + " active ztabitem_active"  %} 
+    {% set active_a_class = a_style + " ztabitem_a_active"  %}
 
     {# Caller: Ensure input is valid link name and with prefix would be valid id #}
     {% set a_link = url_for(link) %} 
@@ -10,23 +10,23 @@
         {% set a_link = "#"+link %} 
     {% endif %}
 
-    {% if request.endpoint.endswith( link ) %}            
-        {{ list_link_item(label, a_link, active_li_class, active_a_style, badge) }}
+    {% if request.endpoint.endswith( link ) %} 
+        {{ list_link_item(label, a_link, active_li_class, active_a_class, is_tabbed_pane, badge) }}
     {% else %}    
-        {{ list_link_item(label, a_link, li_style, a_style, badge)  }}
+        {{ list_link_item(label, a_link, li_style, a_style, is_tabbed_pane, badge)  }}
     {% endif %}
 {% endmacro %}
 
 
 {# 1.b. List Item #}
-{% macro list_link_item(label, link, li_style, a_style, is_tabbed_pane=False, badge=None) %}    
-    <li class="{{ li_style }}" > 
-        {% if is_tabbed_pane %}
-            <a href="{{ link }}" class="{{a_style}}" data-toggle='tab'> {{ label }} </a>
-        {% else %}
-            <a href="{{ link }}" class="{{a_style}}" > {{ label }} </a>
-        {% endif %}
-
+{% macro list_link_item(label, link, li_style, a_style, is_tabbed_pane=False, badge=None) %}        
+    {% if is_tabbed_pane %}
+    <li class="{{ li_style }} ztabitem" > 
+        <a href="{{ link }}" class="{{a_style}} ztabitem_a" data-toggle='tab'> {{ label }} </a>
+    {% else %}
+    <li class="{{ li_style }} ztabitem" > 
+        <a href="{{ link }}" class="{{a_style}} ztabitem_a" > {{ label }} </a>
+    {% endif %} 
         {% if badge %}
             {{ badge }}
         {% endif %}

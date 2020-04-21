@@ -69,6 +69,7 @@ class ZBotLogicFlow():
 
     def getResponse(self, user_input_text): 
         response = None
+        pred_cat = None 
         rcode = self.RCODE_KNOWN_RESPONSE
 
         key_words = cleanup_and_lemmatize( user_input_text ) 
@@ -100,7 +101,7 @@ class ZBotLogicFlow():
                 response, _, response_src, *_ = response
             rcode = self.RCODE_LEARNT_RESPONSE 
 
-        return response, rcode 
+        return response, rcode, pred_cat 
 
 
     

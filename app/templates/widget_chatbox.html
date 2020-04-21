@@ -1,7 +1,7 @@
 {% import 'macros/chatbox.html' as chatbox with context %}
 
 <!-- scrollable content pane -->
-<div class="mb-5" id="msgs_container"> 
+<div class="mb-5 whsapp_bg" id="msgs_container"> 
     {% for msg in msgs %}
         {{ chatbox.message_item( msg.msg, msg.src == BOT_ID ) }}
     {% endfor %}

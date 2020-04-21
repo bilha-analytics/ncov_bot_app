@@ -16,6 +16,8 @@ IS_TABBED_PANE = False
 
 ######### -------- GLOBAL OBJECTS ----------
 
+GSHEET_RECORD_PATH = ['1EuvcPe9WXSQTsmSqhq0LWJG4xz2ZRQ1FEdnQ_LQ-_Ks' , 'user_input!A1:G10000' ] 
+
 ## TODO: kill repetition 
 TABBED_NAV_MENU = [
     {'label' : 'Map of Cases', 'link' : 'mapcases', 'is_tabbed_pane':IS_TABBED_PANE }, 
@@ -61,24 +63,35 @@ def formatDate(zdate, src_format='%Y-%m-%d', target_format="%d %b, %Y"):
 
 
 ######## ------     HELPERS ----- 
+def getTimeStamp():
+    return f"{datetime.now()}"
 
 def getTempPage( cbody=None ):
     return f"<H1> { cbody.capitalize() if cbody else 'Nothing provided' } </H1>"
 
-def getBotResponse(user_input):
-    response, rcode = bot_app.getResponse( user_input ) 
-    return "I don't understand. Try that again" if response is None else response
+def getBotResponse(user_input):        
+    response, rcode, pred_cat = bot_app.getResponse( user_input ) 
+    return "I don't understand. Try that again" if response is None else response, pred_cat
 
-def addChatMsg(src, msg):
+def addChatMsg(src, msg, user_agent=None, from_addr=None, bot_ans=None):
     MESSAGEZ.append( { 'src': src, 'msg': msg} ) 
+    ## save user input
+    if src == USER_ID:
+        zdata_source.writeTo( 
+                [ getTimeStamp(), msg, bot_ans, 
+                    from_addr, user_agent.platform, 
+                    user_agent.browser, user_agent.language], 
+                GSHEET_RECORD_PATH, zdata_source.zGSHEET, zdata_source.MODE_APPEND
+            ) 
 
 def upackDataForNewsTicker( datz ):
     res = []
-    for k, v in datz.items():
-        try: ##by brute!!
-            res.append( "{} : {:,.0f}".format( k, int(v) ) ) 
-        except:            
-            res.append( f"{k} {v}" ) 
+    if datz:
+        for k, v in datz.items():
+            try: ##by brute!!
+                res.append( "{} : {:,.0f}".format( k, int(v) ) ) 
+            except:            
+                res.append( f"{k} {v}" ) 
 
     return ", ".join(res) 
 
@@ -88,7 +101,8 @@ def initBot():
     global bot_app
     model_fpath = 'ncov19_tfidf_faq'
 
-    faq_path = [ ('1EuvcPe9WXSQTsmSqhq0LWJG4xz2ZRQ1FEdnQ_LQ-_Ks', 'FAQ responses!A1:G1000'), ('1EuvcPe9WXSQTsmSqhq0LWJG4xz2ZRQ1FEdnQ_LQ-_Ks', 'Classify_Phrases!A1:G1000')]
+    faq_path = [('1EuvcPe9WXSQTsmSqhq0LWJG4xz2ZRQ1FEdnQ_LQ-_Ks', 'FAQ responses!A1:G1000'), 
+                ('1EuvcPe9WXSQTsmSqhq0LWJG4xz2ZRQ1FEdnQ_LQ-_Ks', 'Classify_Phrases!A1:G1000')]
     faq_typ = zdata_source.zGSHEET_FAQ
 
     bot_app = ZBotLogicFlow()
@@ -101,9 +115,12 @@ def initStreamz():
     
     KE_DATA, GLOBAL_DATA =    apiz.getLatestSummaryStats_PA()
     NEWS_DATA , NEWS_TICKER = apiz.getRelatedNews() 
-    numz = [ upackDataForNewsTicker(KE_DATA), 
+
+    force_numz = [ upackDataForNewsTicker(KE_DATA), 
             upackDataForNewsTicker(GLOBAL_DATA), ]
+
     NEWS_TICKER = [ *NEWS_TICKER ]
+    
     zlogger.log('controller.initStreamz', f"NEWS={NEWS_TICKER}")
 
 
