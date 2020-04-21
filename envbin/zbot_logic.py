@@ -88,7 +88,7 @@ class ZBotLogicFlow():
             elif word in self.EXIT_INPUT:
                 response = random.choice( self.THANKS_RESPONSE )+". "+random.choice( self.EXIT_RESPONSE )
                 rcode = self.RCODE_EXIT_RESPONSE 
-                return response, rcode 
+                return response, rcode , None
 
         if was_que:
             pred_cat = self.model.predict( user_input_text )

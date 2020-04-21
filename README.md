@@ -40,3 +40,5 @@
 - Using the super awesome [JHU map tracker](https://coronavirus.jhu.edu/)
 - Saving user input to build up the training set. Intend on updating model periodically with more FAQ content and training phrases from users 
 
+
+
