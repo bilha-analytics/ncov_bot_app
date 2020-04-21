@@ -1,6 +1,6 @@
 # Retrieval Based Covid19 Bot
 
-![map tracker](eg_screen_map.png 'tracker'){width=70%}![bot chat](eg_screen_bot.png 'bot convo'){width=70%}![about](eg_screen_about.png 'credits'){width=70%}
+![map tracker](eg_screen_map.png 'tracker'){width=70%}![bot chat](eg_screen_bot.png 'bot convo'){width=20%}![about](eg_screen_about.png 'credits'){width=70%}
 
 **The Data**
 - Data Sources: WHO, CDC, JHU, MoH KE
