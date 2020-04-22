@@ -46,13 +46,23 @@ def formatNumber(znumber):
     return "{:,.0f}".format( znumber )  if znumber else znumber #if len(znumber) > 0 else znumber 
 
 @app.template_filter('formatDate')
-def formatDate(zdate, src_format='%Y-%m-%d', target_format="%d %b, %Y"):
+def formatDate(zdate, src_format='%Y-%m-%d', target_format="%d %b %Y"):
     # print( f'zdate.BEFORE >>>>>>>> {zdate}' )
     if zdate:
         zdate1 = datetime.strptime( zdate.split('T')[0], src_format)
         zdate2 = zdate.split('T')[1][:-4]
         # print( f'zdate.AFTER >>>>>>>> {zdate2}' )
         return f"{datetime.strftime(zdate1, target_format ) } at {zdate2}"
+    else:
+        return zdate 
+
+@app.template_filter('formatDateOnly')
+def formatDateOnly(zdate, src_format='%Y-%m-%d', target_format="%d %b %Y"):
+    # print( f'zdate.BEFORE >>>>>>>> {zdate}' )
+    if zdate:
+        zdate1 = datetime.strptime( zdate.split('T')[0], src_format)
+        # print( f'zdate.AFTER >>>>>>>> {zdate2}' )
+        return f"{datetime.strftime(zdate1, target_format ) } "
     else:
         return zdate 
 

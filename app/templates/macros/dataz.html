@@ -1,4 +1,4 @@
-{# Data Table with KE and Global Data only #}
+{# 1. Data Table with KE and Global Data only #}
 {% macro data_header_row( c1, c2, c3) %}
     <tr >
         <th class="p-0" scope="col"><small><strong> {{ c1 }} </strong></small></th>
@@ -13,4 +13,20 @@
         <td class="p-1 text-right"><small> {{ c2 }} </small></td>        
         <td class="p-1 text-right"><small> {{ c3 }} </small></td>        
     </tr>
+{% endmacro %}
+
+
+{# 2. News Item - using media css #}
+{% macro news_item_media(title, author, date, summary, link, img_src ) %}
+    <div class="media mb-3 pb-1 news_item" >
+        <div class="mx-auto"><img class="mr-3" src="{{ img_src }}" style="width: 64px;"> </div>
+        <div class="media-body">
+            <h6 class="mt-0 text-sm"> {{ title }} </h6>
+            <small><em> {{ date | formatDateOnly }} by {{author}} </em> </small><br/>
+            <small><p> {{summary}}</p></small>
+            <a class="badge badge-sm badge-secondary m-0 p-1" target="_blank" href="{{link}}">
+                <small class="p-0">more >></small></a>
+            
+        </div>
+    </div>
 {% endmacro %}

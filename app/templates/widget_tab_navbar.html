@@ -21,9 +21,9 @@
 
         
         <!-- news ticker TODO: replace with JS b/c deprecated marquee-->
-        <div class="m-0 p-0 bg-light pr-1"  >
+        <a class="m-0 p-0" href="{{ url_for('news') }}" style="color: #222222;"><div class="m-0 p-0 bg-light pr-1"  >
             <marquee scrollamount=4 behaviour='slide'> 
-                <span class="small font-weight-light m-0 p-0"><small><em>Medical News</em></small></span>
+                <span class="small font-weight-light m-0 p-0"><small><em>Click for Medical News</em></small></span>
                 <span class="m-0 p-0">
                     <img class="" style="height: 17px; "
                         src="https://w0.pngwave.com/png/422/126/newspaper-computer-icons-symbol-news-icon-png-clip-art.png" />
@@ -33,7 +33,7 @@
                 {% endfor %}
                 <span class="small font-weight-light m-0 p-0"><small> Powered by NewsAPI.org </small> </span>
             </marquee>
-        </div>
+        </div></a>
     </div>
 
 

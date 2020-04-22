@@ -97,6 +97,18 @@ def mapcases(title='Covid Bot'):
     page =  'widget_jhu_map.html'
     return render_template( 'page_creator.html', layout=layout, page=page , **ARGZ)  
 
+@app.route('/news')
 @app.route('/news/<newsid>')
-def news(newsid=None):
-    pass 
+def news(title='Medical News', newsid=None):
+    ARGZ = {
+        'title' : title,
+        'IS_TABBED_PANE' : controller.IS_TABBED_PANE, 
+        "nav_menu" : controller.TABBED_NAV_MENU ,
+        "APP_ICON_URL" : controller.APP_ICON_URL,  
+        'NEWS_TICKER' : controller.NEWS_TICKER, 
+        'NEWS_ITEMS' : controller.NEWS_DATA, 
+    } 
+    
+    layout = 'layouts/layout_app.html'
+    page =  'widget_news.html'
+    return render_template( 'page_creator.html', layout=layout, page=page , **ARGZ)  

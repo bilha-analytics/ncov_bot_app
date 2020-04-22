@@ -29,3 +29,7 @@ $theme_highlightcolor: #CBCE91 ;
     background-color: #fff;
     border-bottom: 3px solid  #422057;
 }
+
+.news_item {
+    border-bottom: lightgray 1px dotted;
+}
