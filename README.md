@@ -5,7 +5,8 @@
     <img src='eg_screen_bot.png' width='200'>
     <img src='eg_screen_about.png' width='200'>
 </p>
-[Try it out here](https://ncov-bot-app.herokuapp.com)
+
+[Try it out here](https://ncov-bot-app.herokuapp.com) 
 
 **The Data**
 - Data Sources: WHO, CDC, JHU, MoH KE
