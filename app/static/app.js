@@ -10,7 +10,6 @@ $(document).ready(function(){
 function setupScreen(){
     document.location.hash = '#bottomz';     
     document.getElementById('askBot').focus(); 
-    document.getElementById('jhumap').src = document.getElementById('jhumap').src 
     
     //full screen it
     document.documentElement.requestFullscreen()
