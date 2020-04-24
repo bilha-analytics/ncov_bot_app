@@ -50,6 +50,16 @@ class ZBotLogicFlow():
 
     THANKS_INPUT = ['thanks', 'sounds good', 'asante', 'shukurani', 'shukran', 'good job', 'good work']
     THANKS_RESPONSE = ["you're welcome", "glad to be of help", "anytime",  'happy to be of assistance']
+    
+    DONT_KNOW_RESPONSES = [
+        "I don't understand. Try that again",
+        "Hmmm.... I don't know about that yet. I'll find out more",
+        "Was that at typo? Could you ask again", 
+        "Ooh, that's interesting. Let me find out more",
+        "I don't get you. Could you rephrase", 
+        "Is that what you meant to ask? Could you rephrase",
+        "Well, that's new to me too. Let me find out more"
+    ]
 
     RCODE_KNOWN_RESPONSE = 200
     RCODE_LEARNT_RESPONSE = 210
@@ -100,6 +110,10 @@ class ZBotLogicFlow():
             if isinstance( response, list):
                 response, _, response_src, *_ = response
             rcode = self.RCODE_LEARNT_RESPONSE 
+        
+
+        if response is None:
+            response = random.choice( self.DONT_KNOW_RESPONSES )
 
         return response, rcode, pred_cat 
 
