@@ -15,7 +15,7 @@
     <!-- <h6 class="card-title"> <small> Last Update: {{ ke_data['Date'] | formatDate }}</small> </h6> --> 
     <table class="table table-striped table-light p-0 m-0"><small>
         {% if ke_data and glb_data %}
-        <caption><small><em> Tracking cases. Last Updated: {{ ke_data['Date'] | formatDate }} <br/> May be behind the map sometimes. Map is most up to date</em></small></caption>
+        <caption><small><em> Tracking cases. Last Updated: {{ ke_data['Date'] | formatDate }} <br/> </em></small></caption>
         <thead class="thead-light"> {{ tabler.data_header_row( "", "Kenya", "Global") }} </thead>
         <tbody class=""> 
             
@@ -24,9 +24,13 @@
             
             {% set ke_death_rate = 100 * ke_data['TotalDeaths'] / ke_data['TotalConfirmed'] %}
             {% set glb_death_rate = 100 * glb_data['TotalDeaths'] / glb_data['TotalConfirmed'] %}
+            
+            {% set ke_pos_of_tested = 100 * ke_data['TotalConfirmed'] / ke_data['TotalTests'] %}
+            {% set glb_pos_of_tested = 100 * glb_data['TotalConfirmed'] / glb_data['TotalTests'] %}
 
-            {{ tabler.data_row( "Recovery Rate", ke_recovery_rate | formatNumber + "%", glb_recovery_rate | formatNumber +"%") }}
-            {{ tabler.data_row( "Loss Rate", ke_death_rate | formatNumber + "%", glb_death_rate | formatNumber +"%") }}
+            {{ tabler.data_row( "Recovery Rate", ke_recovery_rate | formatNumber + "%", glb_recovery_rate | formatNumber +"%", other_text_class="text-info") }}
+            {{ tabler.data_row( "Death Rate", ke_death_rate | formatNumber + "%", glb_death_rate | formatNumber +"%", other_text_class="text-info") }}
+            {{ tabler.data_row( "Positives as % of tested", ke_pos_of_tested | formatNumber + "%", glb_pos_of_tested | formatNumber +"%", other_text_class="text-info") }}
 
             {{ tabler.data_row( "---", "", "") }}
 
@@ -36,9 +40,15 @@
             
             {{ tabler.data_row( "---", "", "") }}
 
-            {{ tabler.data_row( "Total Confirmed", ke_data['TotalConfirmed'] | formatNumber, glb_data['TotalConfirmed'] | formatNumber) }}
-            {{ tabler.data_row( "Total Deaths", ke_data['TotalDeaths'] | formatNumber, glb_data['TotalDeaths'] | formatNumber) }}
-            {{ tabler.data_row( "Total Recovered", ke_data['TotalRecovered'] | formatNumber, glb_data['TotalRecovered'] | formatNumber) }}
+            {{ tabler.data_row( "Serious/Critical", ke_data['Serious,Critical'] | formatNumber, glb_data['Serious,Critical'] | formatNumber, other_text_class="text-info") }}
+            {{ tabler.data_row( "Active Cases", ke_data['ActiveCases'] | formatNumber, glb_data['ActiveCases'] | formatNumber , other_text_class="text-info") }}
+            {{ tabler.data_row( "Total Tested", ke_data['TotalTests'] | formatNumber, glb_data['TotalTests'] | formatNumber, other_text_class="text-info") }}
+
+            {{ tabler.data_row( "---", "", "") }}
+
+            {{ tabler.data_row( "Total Confirmed", ke_data['TotalConfirmed'] | formatNumber, glb_data['TotalConfirmed'] | formatNumber, other_text_class="") }}
+            {{ tabler.data_row( "Total Deaths", ke_data['TotalDeaths'] | formatNumber, glb_data['TotalDeaths'] | formatNumber, other_text_class="") }}
+            {{ tabler.data_row( "Total Recovered", ke_data['TotalRecovered'] | formatNumber, glb_data['TotalRecovered'] | formatNumber, other_text_class="") }}
         </tbody>
         {% endif %}
     </small> </table>

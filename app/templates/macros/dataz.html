@@ -7,11 +7,11 @@
     </tr>
 {% endmacro %}
 
-{% macro data_row( c1, c2, c3) %}
+{% macro data_row( c1, c2, c3, other_text_class="") %}
     <tr>
-        <td class="p-1"><small> {{ c1 }} </small></td>        
-        <td class="p-1 text-right"><small> {{ c2 }} </small></td>        
-        <td class="p-1 text-right"><small> {{ c3 }} </small></td>        
+        <td class="p-1 {{other_text_class}}"><small> {{ c1 }} </small></td>        
+        <td class="p-1 text-right {{other_text_class}}"><small> {{ c2 }} </small></td>        
+        <td class="p-1 text-right {{other_text_class}}"><small> {{ c3 }} </small></td>        
     </tr>
 {% endmacro %}
 
@@ -24,8 +24,10 @@
             <h6 class="mt-0 text-sm"> {{ title }} </h6>
             <small><em> {{ date | formatDateOnly }} by {{author}} </em> </small><br/>
             <small><p> {{summary}}</p></small>
+            <span class="d-flex justify-content-end"> 
             <a class="badge badge-sm badge-secondary m-0 p-1" target="_blank" href="{{link}}">
                 <small class="p-0">more >></small></a>
+            </span>
             
         </div>
     </div>

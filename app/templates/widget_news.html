@@ -4,5 +4,9 @@
         {% for news in NEWS_ITEMS %}
             {{ lister.news_item_media(news.title, news.author, news.publishedAt, news.description, news.url, news.urlToImage ) }}
         {% endfor %}
+    {% else %}
+    <p>I seem to have encountered a problem.<br/>
+        <a class="btn btn-primary " href="{{ url_for('news') }}" >Let's try that again</a>
+    </p>
     {% endif %}
 </div>
