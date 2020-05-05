@@ -85,12 +85,12 @@ def getStatsFromWorldometer(country='Kenya'):
                     print( colored(f'COl. Statswith.New: {val}', 'blue'))
                     if val and (str(val).startswith("+") or str(val).startswith("-") ):
                         ddict[ f"{col}_direction"] = val[0]
-                        ddict[ f"{col}"] = int(str(val[1:]).replace(",", ""))
+                        ddict[ f"{col}"] = float(str(val[1:]).replace(",", ""))
                     elif str(val).startswith('nan'):
                         ddict[ f"{col}"] = 0
                     else:
-                        ddict[ f"{col}"] = int(str(val).replace(",", ""))
-
+                        ddict[ f"{col}"] = float(str(val).replace(",", ""))
+s
                 else:
                     ddict[ f"{col}"] = dftmp.at[idx_today, col ]         
             

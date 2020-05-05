@@ -99,7 +99,7 @@ def upackDataForNewsTicker( datz ):
     if datz:
         for k, v in datz.items():
             try: ##by brute!!
-                res.append( "{} : {:,.0f}".format( k, int(v) ) ) 
+                res.append( "{} : {:,.0f}".format( k, float(v) ) ) 
             except:            
                 res.append( f"{k} {v}" ) 
 
