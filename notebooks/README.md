@@ -10,4 +10,4 @@
 
 Order: From oldest (less knowledge to more knowledge) 
 
-Related: (Prior exploration)[https://github.com/bilha-analytics/es_services]
+Related: [Prior exploration](https://github.com/bilha-analytics/es_services)
