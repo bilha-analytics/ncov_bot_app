@@ -1,4 +1,5 @@
-theme: jekyll-theme-slate
+#theme: jekyll-theme-slate
+theme: minimal
 
 # infor
 title: Retrieval-based COVID-19 Chatbot 
