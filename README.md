@@ -1,4 +1,4 @@
-# Retrieval Based Covid19 Bot
+# Retrieval-based Covid19 Bot
 
 <p align='center'>
     <img src='eg_screen_map.png' width='150'>
