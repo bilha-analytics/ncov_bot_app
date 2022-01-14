@@ -1,10 +1,10 @@
 # Retrieval Based Covid19 Bot
 
 <p align='center'>
-    <img src='eg_screen_map.png' width='200'>
-    <img src='eg_screen_bot.png' width='200'>
-    <img src='eg_screen_about.png' width='200'>
-    <img src='eg_screen_news.png' width='200'>
+    <img src='eg_screen_map.png' width='150'>
+    <img src='eg_screen_bot.png' width='150'>
+    <img src='eg_screen_about.png' width='150'>
+    <img src='eg_screen_news.png' width='150'>
 </p>
 
 [Try it out here](https://ncov-bot-app.herokuapp.com) 
