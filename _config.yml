@@ -1,1 +1,6 @@
 theme: jekyll-theme-slate
+
+# infor
+title: Retrieval-based COVID-19 Chatbot 
+description: NLP project - NLTK, Sklearn, Flask
+
