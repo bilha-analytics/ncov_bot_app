@@ -156,7 +156,7 @@ def getLatestSummaryStats_PA(country='Kenya'):
 def getRelatedNews():
     NEWS_DATA , NEWS_TICKER = [], []
 
-    api_key = "633d33d95eac415e8334b783cabe3485"
+    api_key = ""
     
     q = "covid19"
     mkt='en-US'
