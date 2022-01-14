@@ -3,7 +3,7 @@ theme: jekyll-theme-slate
 
 # infor
 title: Retrieval-based COVID-19 Chatbot 
-description: NLP project - NLTK, Sklearn, Flask
+description: NLP project - NLTK, Sklearn, Flask, Beautiful Soup
 
 navigation:
   - {url: "https://coronavirus.jhu.edu/" , title: "JHUM COVID Resources"}
